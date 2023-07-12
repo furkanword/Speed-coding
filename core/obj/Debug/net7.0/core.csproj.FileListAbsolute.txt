@@ -1,0 +1,12 @@
+/home/apolm01-004/speed-coding/core/bin/Debug/net7.0/core.deps.json
+/home/apolm01-004/speed-coding/core/bin/Debug/net7.0/core.dll
+/home/apolm01-004/speed-coding/core/bin/Debug/net7.0/core.pdb
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.csproj.AssemblyReference.cache
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.GeneratedMSBuildEditorConfig.editorconfig
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.AssemblyInfoInputs.cache
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.AssemblyInfo.cs
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.csproj.CoreCompileInputs.cache
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.dll
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/refint/core.dll
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/core.pdb
+/home/apolm01-004/speed-coding/core/obj/Debug/net7.0/ref/core.dll
