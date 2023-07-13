@@ -20,6 +20,8 @@ public class configEspecialidad : IEntityTypeConfiguration<Especialidad>
         .HasMaxLength(20)
         .IsRequired();
 
+        
+
     }
 }
 

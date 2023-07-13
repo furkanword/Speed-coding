@@ -64,5 +64,18 @@ public class configUsuario: IEntityTypeConfiguration<Usuario>
         .HasColumnType("INT")
         .IsRequired();
 
+        builder.HasOne(m => m.Acudiente)
+        .WithMany(e => e.usuarios)
+        .HasForeignKey(m => m.Acudiente_id);
+
+        builder.HasOne(m => m.Genero)
+        .WithMany(e => e.usuarios)
+        .HasForeignKey(m => m.Genero_id);
+
+        builder.HasOne(m => m.Tipo_documento)
+        .WithMany(e => e.usuarios)
+        .HasForeignKey(m => m.Tipo_documento_id);
+        
+
     }
 }

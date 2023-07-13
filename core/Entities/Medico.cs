@@ -10,10 +10,10 @@ public class Medico
     public ICollection<Cita> ? citas { get; set; }
 
     public int Med_consultorio_id { get; set; }
-    public Consultorio ? Consultorios { get; set; }
+    public Consultorio ? Consultorio { get; set; }
 
     public int Med_especialidad_id { get; set; }
-    public Medico ? Medicos { get; set; }
+    public Especialidad ? Especialidad { get; set; }
 
     
 }

@@ -10,12 +10,12 @@ public class Cita
     public DateTime cita_fecha { get;set; }
 
     public int cita_estado_id { get;set; }
-    public Estado_cita ? Estado_Citas { get;set; }
+    public Estado_cita ? Estado_Cita { get;set; }
 
     public int cita_medico_id { get;set; }
     public Medico ? Medico { get;set; }
 
     public int cita_datos_Usuario_id { get;set; }
-    public virtual Usuario ? Usuarios { get; set; }
+    public virtual Usuario ? Usuario { get; set; }
     
 }

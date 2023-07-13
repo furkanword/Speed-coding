@@ -28,6 +28,7 @@ public class configAcudientes : IEntityTypeConfiguration<Acudiente>
         builder.Property(a => a.Direccion)
         .HasColumnName("acu_direccion")
         .HasMaxLength(200);
+        
 
     }
 }

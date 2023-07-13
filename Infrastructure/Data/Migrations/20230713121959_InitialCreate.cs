@@ -56,17 +56,11 @@ namespace Infrastructure.Data.Migrations
                     espid = table.Column<int>(name: "esp_id", type: "INT", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     espnombre = table.Column<string>(name: "esp_nombre", type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EspecialidadId1 = table.Column<int>(name: "Especialidad_Id1", type: "INT", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Especialidad", x => x.espid);
-                    table.ForeignKey(
-                        name: "FK_Especialidad_Especialidad_Especialidad_Id1",
-                        column: x => x.EspecialidadId1,
-                        principalTable: "Especialidad",
-                        principalColumn: "esp_id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -128,23 +122,23 @@ namespace Infrastructure.Data.Migrations
                     mednombreCompleto = table.Column<string>(name: "med_nombreCompleto", type: "varchar(120)", maxLength: 120, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     medconsultorio = table.Column<int>(name: "med_consultorio", type: "INT", nullable: false),
-                    ConsultoriosConsultorioId = table.Column<int>(name: "ConsultoriosConsultorio_Id", type: "INT", nullable: true),
-                    medespecialidad = table.Column<int>(name: "med_especialidad", type: "INT", nullable: false),
-                    MedicosMednumeromatriculapostal = table.Column<int>(name: "MedicosMed_numero_matricula_postal", type: "INT", nullable: true)
+                    medespecialidad = table.Column<int>(name: "med_especialidad", type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medico", x => x.mednroMatriculaProfecional);
                     table.ForeignKey(
-                        name: "FK_Medico_Consultorio_ConsultoriosConsultorio_Id",
-                        column: x => x.ConsultoriosConsultorioId,
+                        name: "FK_Medico_Consultorio_med_consultorio",
+                        column: x => x.medconsultorio,
                         principalTable: "Consultorio",
-                        principalColumn: "cons_codigo");
+                        principalColumn: "cons_codigo",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Medico_Medico_MedicosMed_numero_matricula_postal",
-                        column: x => x.MedicosMednumeromatriculapostal,
-                        principalTable: "Medico",
-                        principalColumn: "med_nroMatriculaProfecional");
+                        name: "FK_Medico_Especialidad_med_especialidad",
+                        column: x => x.medespecialidad,
+                        principalTable: "Especialidad",
+                        principalColumn: "esp_id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -169,30 +163,30 @@ namespace Infrastructure.Data.Migrations
                     usuemail = table.Column<string>(name: "usu_e-mail", type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     usutipodoc = table.Column<int>(name: "usu_tipodoc", type: "INT", nullable: false),
-                    Tipodocumentoidtipodocumento = table.Column<int>(name: "Tipo_documentoid_tipo_documento", type: "INT", nullable: true),
                     usugenero = table.Column<int>(name: "usu_genero", type: "INT", nullable: false),
-                    generoId = table.Column<int>(name: "genero_Id", type: "INT", nullable: true),
-                    usuacudiente = table.Column<int>(name: "usu_acudiente", type: "INT", nullable: false),
-                    AcudienteCodigo = table.Column<int>(type: "INT", nullable: true)
+                    usuacudiente = table.Column<int>(name: "usu_acudiente", type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuario", x => x.usuid);
                     table.ForeignKey(
-                        name: "FK_Usuario_Acudiente_AcudienteCodigo",
-                        column: x => x.AcudienteCodigo,
+                        name: "FK_Usuario_Acudiente_usu_acudiente",
+                        column: x => x.usuacudiente,
                         principalTable: "Acudiente",
-                        principalColumn: "acu_codigo");
+                        principalColumn: "acu_codigo",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Usuario_Genero_genero_Id",
-                        column: x => x.generoId,
+                        name: "FK_Usuario_Genero_usu_genero",
+                        column: x => x.usugenero,
                         principalTable: "Genero",
-                        principalColumn: "gen_id");
+                        principalColumn: "gen_id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Usuario_Tipo_documento_Tipo_documentoid_tipo_documento",
-                        column: x => x.Tipodocumentoidtipodocumento,
+                        name: "FK_Usuario_Tipo_documento_usu_tipodoc",
+                        column: x => x.usutipodoc,
                         principalTable: "Tipo_documento",
-                        principalColumn: "tipdoc_id");
+                        principalColumn: "tipdoc_id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -204,77 +198,72 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     citfecha = table.Column<DateTime>(name: "cit_fecha", type: "DATE", nullable: false),
                     citestadoCita = table.Column<int>(name: "cit_estadoCita", type: "INT", nullable: false),
-                    EstadoCitasEstadocitaId = table.Column<int>(name: "Estado_CitasEstado_cita_Id", type: "INT", nullable: true),
                     citmedico = table.Column<int>(name: "cit_medico", type: "INT", nullable: false),
-                    MedicoMednumeromatriculapostal = table.Column<int>(name: "MedicoMed_numero_matricula_postal", type: "INT", nullable: true),
-                    citdatosUsuario = table.Column<int>(name: "cit_datosUsuario", type: "INT", nullable: false),
-                    UsuariosId = table.Column<int>(type: "INT", nullable: true)
+                    citdatosUsuario = table.Column<int>(name: "cit_datosUsuario", type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cita", x => x.citcodigo);
                     table.ForeignKey(
-                        name: "FK_Cita_Estado_cita_Estado_CitasEstado_cita_Id",
-                        column: x => x.EstadoCitasEstadocitaId,
+                        name: "FK_Cita_Estado_cita_cit_estadoCita",
+                        column: x => x.citestadoCita,
                         principalTable: "Estado_cita",
-                        principalColumn: "estcita_id");
+                        principalColumn: "estcita_id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cita_Medico_MedicoMed_numero_matricula_postal",
-                        column: x => x.MedicoMednumeromatriculapostal,
+                        name: "FK_Cita_Medico_cit_medico",
+                        column: x => x.citmedico,
                         principalTable: "Medico",
-                        principalColumn: "med_nroMatriculaProfecional");
+                        principalColumn: "med_nroMatriculaProfecional",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cita_Usuario_UsuariosId",
-                        column: x => x.UsuariosId,
+                        name: "FK_Cita_Usuario_cit_datosUsuario",
+                        column: x => x.citdatosUsuario,
                         principalTable: "Usuario",
-                        principalColumn: "usu_id");
+                        principalColumn: "usu_id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cita_Estado_CitasEstado_cita_Id",
+                name: "IX_Cita_cit_datosUsuario",
                 table: "Cita",
-                column: "Estado_CitasEstado_cita_Id");
+                column: "cit_datosUsuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cita_MedicoMed_numero_matricula_postal",
+                name: "IX_Cita_cit_estadoCita",
                 table: "Cita",
-                column: "MedicoMed_numero_matricula_postal");
+                column: "cit_estadoCita");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cita_UsuariosId",
+                name: "IX_Cita_cit_medico",
                 table: "Cita",
-                column: "UsuariosId");
+                column: "cit_medico");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Especialidad_Especialidad_Id1",
-                table: "Especialidad",
-                column: "Especialidad_Id1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Medico_ConsultoriosConsultorio_Id",
+                name: "IX_Medico_med_consultorio",
                 table: "Medico",
-                column: "ConsultoriosConsultorio_Id");
+                column: "med_consultorio");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medico_MedicosMed_numero_matricula_postal",
+                name: "IX_Medico_med_especialidad",
                 table: "Medico",
-                column: "MedicosMed_numero_matricula_postal");
+                column: "med_especialidad");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuario_AcudienteCodigo",
+                name: "IX_Usuario_usu_acudiente",
                 table: "Usuario",
-                column: "AcudienteCodigo");
+                column: "usu_acudiente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuario_genero_Id",
+                name: "IX_Usuario_usu_genero",
                 table: "Usuario",
-                column: "genero_Id");
+                column: "usu_genero");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuario_Tipo_documentoid_tipo_documento",
+                name: "IX_Usuario_usu_tipodoc",
                 table: "Usuario",
-                column: "Tipo_documentoid_tipo_documento");
+                column: "usu_tipodoc");
         }
 
         /// <inheritdoc />
@@ -282,9 +271,6 @@ namespace Infrastructure.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cita");
-
-            migrationBuilder.DropTable(
-                name: "Especialidad");
 
             migrationBuilder.DropTable(
                 name: "Estado_cita");
@@ -297,6 +283,9 @@ namespace Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Consultorio");
+
+            migrationBuilder.DropTable(
+                name: "Especialidad");
 
             migrationBuilder.DropTable(
                 name: "Acudiente");

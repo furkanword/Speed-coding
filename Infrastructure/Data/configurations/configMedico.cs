@@ -30,6 +30,15 @@ public class configGMedico: IEntityTypeConfiguration<Medico>
         .HasColumnType("INT")
         .IsRequired();
 
+        builder.HasOne(m => m.Especialidad)
+        .WithMany(e => e.Medicos)
+        .HasForeignKey(m => m.Med_especialidad_id);
+
+        builder.HasOne(m => m.Consultorio)
+        .WithMany(e => e.Medicos)
+        .HasForeignKey(m => m.Med_consultorio_id);
+
+
 
     }
 }

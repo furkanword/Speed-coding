@@ -8,7 +8,7 @@ public class Especialidad
     public int Especialidad_Id { get; set; }
     public string ? Especialidad_Nombre { get; set; }
 
-    public ICollection<Especialidad> ? Especialidades { get; set; }
+    public ICollection<Medico> ? Medicos { get; set; }
     
     
 }

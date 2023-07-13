@@ -55,15 +55,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INT")
                         .HasColumnName("cit_codigo");
 
-                    b.Property<int?>("Estado_CitasEstado_cita_Id")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("MedicoMed_numero_matricula_postal")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("UsuariosId")
-                        .HasColumnType("INT");
-
                     b.Property<int>("cita_datos_Usuario_id")
                         .HasColumnType("INT")
                         .HasColumnName("cit_datosUsuario");
@@ -82,11 +73,11 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("cita_codigo");
 
-                    b.HasIndex("Estado_CitasEstado_cita_Id");
+                    b.HasIndex("cita_datos_Usuario_id");
 
-                    b.HasIndex("MedicoMed_numero_matricula_postal");
+                    b.HasIndex("cita_estado_id");
 
-                    b.HasIndex("UsuariosId");
+                    b.HasIndex("cita_medico_id");
 
                     b.ToTable("Cita", (string)null);
                 });
@@ -116,9 +107,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INT")
                         .HasColumnName("esp_id");
 
-                    b.Property<int?>("Especialidad_Id1")
-                        .HasColumnType("INT");
-
                     b.Property<string>("Especialidad_Nombre")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -126,8 +114,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("esp_nombre");
 
                     b.HasKey("Especialidad_Id");
-
-                    b.HasIndex("Especialidad_Id1");
 
                     b.ToTable("Especialidad", (string)null);
                 });
@@ -181,9 +167,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INT")
                         .HasColumnName("med_nroMatriculaProfecional");
 
-                    b.Property<int?>("ConsultoriosConsultorio_Id")
-                        .HasColumnType("INT");
-
                     b.Property<int>("Med_consultorio_id")
                         .HasColumnType("INT")
                         .HasColumnName("med_consultorio");
@@ -198,14 +181,11 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("varchar(120)")
                         .HasColumnName("med_nombreCompleto");
 
-                    b.Property<int?>("MedicosMed_numero_matricula_postal")
-                        .HasColumnType("INT");
-
                     b.HasKey("Med_numero_matricula_postal");
 
-                    b.HasIndex("ConsultoriosConsultorio_Id");
+                    b.HasIndex("Med_consultorio_id");
 
-                    b.HasIndex("MedicosMed_numero_matricula_postal");
+                    b.HasIndex("Med_especialidad_id");
 
                     b.ToTable("Medico", (string)null);
                 });
@@ -240,9 +220,6 @@ namespace Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INT")
                         .HasColumnName("usu_id");
-
-                    b.Property<int?>("AcudienteCodigo")
-                        .HasColumnType("INT");
 
                     b.Property<int>("Acudiente_id")
                         .HasColumnType("INT")
@@ -295,79 +272,82 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INT")
                         .HasColumnName("usu_tipodoc");
 
-                    b.Property<int?>("Tipo_documentoid_tipo_documento")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("genero_Id")
-                        .HasColumnType("INT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AcudienteCodigo");
+                    b.HasIndex("Acudiente_id");
 
-                    b.HasIndex("Tipo_documentoid_tipo_documento");
+                    b.HasIndex("Genero_id");
 
-                    b.HasIndex("genero_Id");
+                    b.HasIndex("Tipo_documento_id");
 
                     b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Cita", b =>
                 {
-                    b.HasOne("core.Entities.Estado_cita", "Estado_Citas")
+                    b.HasOne("core.Entities.Usuario", "Usuario")
                         .WithMany("citas")
-                        .HasForeignKey("Estado_CitasEstado_cita_Id");
+                        .HasForeignKey("cita_datos_Usuario_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("core.Entities.Estado_cita", "Estado_Cita")
+                        .WithMany("citas")
+                        .HasForeignKey("cita_estado_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("core.Entities.Medico", "Medico")
                         .WithMany("citas")
-                        .HasForeignKey("MedicoMed_numero_matricula_postal");
+                        .HasForeignKey("cita_medico_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("core.Entities.Usuario", "Usuarios")
-                        .WithMany("citas")
-                        .HasForeignKey("UsuariosId");
-
-                    b.Navigation("Estado_Citas");
+                    b.Navigation("Estado_Cita");
 
                     b.Navigation("Medico");
 
-                    b.Navigation("Usuarios");
-                });
-
-            modelBuilder.Entity("core.Entities.Especialidad", b =>
-                {
-                    b.HasOne("core.Entities.Especialidad", null)
-                        .WithMany("Especialidades")
-                        .HasForeignKey("Especialidad_Id1");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("core.Entities.Medico", b =>
                 {
-                    b.HasOne("core.Entities.Consultorio", "Consultorios")
-                        .WithMany()
-                        .HasForeignKey("ConsultoriosConsultorio_Id");
+                    b.HasOne("core.Entities.Consultorio", "Consultorio")
+                        .WithMany("Medicos")
+                        .HasForeignKey("Med_consultorio_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("core.Entities.Medico", "Medicos")
-                        .WithMany()
-                        .HasForeignKey("MedicosMed_numero_matricula_postal");
+                    b.HasOne("core.Entities.Especialidad", "Especialidad")
+                        .WithMany("Medicos")
+                        .HasForeignKey("Med_especialidad_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Consultorios");
+                    b.Navigation("Consultorio");
 
-                    b.Navigation("Medicos");
+                    b.Navigation("Especialidad");
                 });
 
             modelBuilder.Entity("core.Entities.Usuario", b =>
                 {
                     b.HasOne("core.Entities.Acudiente", "Acudiente")
                         .WithMany("usuarios")
-                        .HasForeignKey("AcudienteCodigo");
-
-                    b.HasOne("core.Entities.Tipo_documento", "Tipo_documento")
-                        .WithMany("usuarios")
-                        .HasForeignKey("Tipo_documentoid_tipo_documento");
+                        .HasForeignKey("Acudiente_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("core.Entities.Genero", "Genero")
                         .WithMany("usuarios")
-                        .HasForeignKey("genero_Id");
+                        .HasForeignKey("Genero_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("core.Entities.Tipo_documento", "Tipo_documento")
+                        .WithMany("usuarios")
+                        .HasForeignKey("Tipo_documento_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Acudiente");
 
@@ -381,9 +361,14 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("usuarios");
                 });
 
+            modelBuilder.Entity("core.Entities.Consultorio", b =>
+                {
+                    b.Navigation("Medicos");
+                });
+
             modelBuilder.Entity("core.Entities.Especialidad", b =>
                 {
-                    b.Navigation("Especialidades");
+                    b.Navigation("Medicos");
                 });
 
             modelBuilder.Entity("core.Entities.Estado_cita", b =>

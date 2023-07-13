@@ -35,5 +35,17 @@ public class configCitas : IEntityTypeConfiguration<Cita>
         .HasColumnName("cit_datosUsuario")
         .HasColumnType("INT")
         .IsRequired();
+
+        builder.HasOne(m => m.Estado_Cita)
+        .WithMany(e => e.citas)
+        .HasForeignKey(m => m.cita_estado_id);
+
+        builder.HasOne(m => m.Usuario)
+        .WithMany(e => e.citas)
+        .HasForeignKey(m => m.cita_datos_Usuario_id);
+
+        builder.HasOne(m => m.Medico)
+        .WithMany(e => e.citas)
+        .HasForeignKey(m => m.cita_medico_id);
     }
 }
