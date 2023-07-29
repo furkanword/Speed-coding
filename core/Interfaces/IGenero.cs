@@ -1,4 +1,5 @@
-using System.Ling.Expressions;
+
+using System.Linq.Expressions;
 using core.Entities;
 
 namespace core.Interfaces;

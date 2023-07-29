@@ -4,10 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Data;
 
 public class InventarioContext : DbContext {
-    public InventarioContext(DbContextOptions<InventarioContext> options) : base(options)
-    { 
-
-    }   
+    public InventarioContext(DbContextOptions<InventarioContext> options) : base(options){}   
     public DbSet<Acudiente> Acudientes { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Cita> Citas { get; set; }    

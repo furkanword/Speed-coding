@@ -1,18 +1,19 @@
-using System.Ling.Expressions;
+
+using System.Linq.Expressions;
 using core.Entities;
 
 namespace core.Interfaces;
 
 public interface IConsultorio
 {
-    Task<consultorio> GetByIdAsync(string id);
-    Task<IEnumerable<consultorio>> GetAllAsync();
-    IEnumerable<consultorio>  find(Expression<Func<consultorio, bool>> expression);
-    void Add(consultorio entity);
-    void AddRange(IEnumerable<consultorio> entities);
-    void Remove(consultorio entity);
-    void RemoveRange(IEnumerable<consultorio> entities);
-    void Update(consultorio entity);
+    Task<Consultorio> GetByIdAsync(string id);
+    Task<IEnumerable<Consultorio>> GetAllAsync();
+    IEnumerable<Consultorio>  find(Expression<Func<Consultorio, bool>> expression);
+    void Add(Consultorio entity);
+    void AddRange(IEnumerable<Consultorio> entities);
+    void Remove(Consultorio entity);
+    void RemoveRange(IEnumerable<Consultorio> entities);
+    void Update(Consultorio entity);
 
 
 }

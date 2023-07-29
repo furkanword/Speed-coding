@@ -1,113 +1,129 @@
+using core.Entities;
+using Core.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.Repositories;
 
 namespace Infrastructure.UnitOfWork;
+public class UnitOfWork : IUnitOfWork,IDisposable
+{    
+    private readonly InventarioContext _context;
+    private AcudienteRepository? _acudiente;
+    private CitaRepository? _cita;
+    private ConsultorioRepository? _consultorio;
+    private EspecialidadRepository? _especialidad;
+    private Estado_citaRepository? _estado;
+    private GeneroRepository? _genero;
+    private MedicoRepository? _medico;
+    private Tipo_documentoRepository? _tipoDocumento;
+    private UsuarioRepository? _usuario;
 
-public class UnitOfWork: IUnitteOfWork
-{
+    public UnitOfWork(InventarioContext context)=>_context = context;
 
-    public UnitOfWork(InventarioContext _context){
-        context = _context;
-    }
-    public IAcudiente Acudientes => throw new  AcudienteRepository(context);
-    public ICita Cita => throw new NotImplementedException();
-    public IConsultorio Consultorio => throw new NotImplementedException();
-    public IEspecialidad Especialidad => throw new NotImplementedException();
-    public IEstado_cita Estado_cita => throw new NotImplementedException();
-    public IGenero Genero => throw new NotImplementedException();
-    public IMedico Medico => throw new NotImplementedException();
-    public ITipo_documento Tipo_Documento => throw new NotImplementedException();
-    public IUsuario Usuario => throw new NotImplementedException();
-
-    public UnitOfWork(InventarioContext _context){
-        context = _context;
-    }
-
-
-    public IAcudientes Acudientes{
+    public ICitas<Acudiente, int> Acudientes
+    {
         get{
-            if(_Acudientes == null){
-                _Acudientes = new  AcudienteRepository(context);
+            if (_acudiente is not null)
+            {
+                return (ICitas<Acudiente, int>)_acudiente;
             }
-            return _Acudientes;
+            return (ICitas<Acudiente, int>)(_acudiente = new AcudienteRepository(_context));
         }
     }
 
-    public ICita Citas{
+    public ICitas<Cita, int> Citas
+    {
         get{
-            if(_Citas == null){
-                _Citas = new  CitaRepository(context);
+            if (_cita is not null)
+            {
+                return _cita;
             }
-            return _Citas;
+            return _cita = new CitaRepository(_context);
         }
     }
 
-    public IConsultorio Consultorios{
+    public ICitas<Consultorio, int> Consultorios
+    {
         get{
-            if(_Consultorios == null){
-                _Consultorios = new  ConsultorioRepository(context);
+            if (_consultorio is not null)
+            {
+                return (ICitas<Consultorio, int>)_consultorio;
             }
-            return _Consultorios;
+            return (ICitas<Consultorio, int>)(_consultorio = new ConsultorioRepository(_context));
         }
     }
 
-    public IEspecialidad Especialidades{
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
+
+    public ICitas<Especialidad, int> Especialidades
+    {
         get{
-            if(_Especialidades == null){
-                _Especialidades = new  EspecialidadRepository(context);
+            if (_especialidad is not null)
+            {
+                return (ICitas<Especialidad, int>)_especialidad;
             }
-            return _Especialidades;
+            return (ICitas<Especialidad, int>)(_especialidad = new EspecialidadRepository(_context));
         }
     }
 
-    public IEstado_cita Estado_Citas{
+    public ICitas<Estado_cita, int> Estados
+    {
         get{
-            if(_Estado_Citas  == null){
-                _Estado_Citas  = new  Estado_citaRepository(context);
+            if (_estado is not null)
+            {
+                return (ICitas<Estado_cita, int>)_estado;
             }
-            return _Estado_Citas ;
+            return (ICitas<Estado_cita, int>)(_estado = new Estado_citaRepository(_context));
         }
     }
 
-    public IGenero Generos{
+    public ICitas<Genero, int> Generos
+    {
         get{
-            if(_Generos  == null){
-                _Generos  = new  GeneroRepository(context);
+            if (_genero is not null)
+            {
+                return (ICitas<Genero, int>)_genero;
             }
-            return _Generos;
+            return (ICitas<Genero, int>)(_genero = new GeneroRepository(_context));
         }
     }
 
-     public IMedico Medicos{
+    public ICitas<Medico, int> Medicos
+    {
         get{
-            if(_Medicos  == null){
-                _Medicos  = new  CitaRepository(context);
+            if (_medico is not null)
+            {
+                return (ICitas<Medico, int>)_medico;
             }
-            return _Medicos ;
-        }
-    }
-    
-     public ITipo_Documento Tipo_Documentos{
-        get{
-            if(_Tipo_Documentos  == null){
-                _Tipo_Documentos  = new  Tipo_Repository(context);
-            }
-            return _Tipo_Documentos ;
+            return (ICitas<Medico, int>)(_medico = new MedicoRepository(_context));
         }
     }
 
-     public IUsuario Usuarios{
+    public async Task<int> SaveAsync(){
+        return await _context.SaveChangesAsync();
+    }
+
+    public ICitas<Tipo_documento, int> TipoDocumentos
+    {
         get{
-            if(_Usuarios  == null){
-                _Usuarios  = new  UsuarioRepository(context);
+            if (_tipoDocumento is not null)
+            {
+                return (ICitas<Tipo_documento, int>)_tipoDocumento;
             }
-            return _Usuarios ;
+            return (ICitas<Tipo_documento, int>)(_tipoDocumento = new Tipo_documentoRepository(_context));
         }
     }
-    
 
-
-
-    public int Save(){
-        throw new NotImplementedException();
+    public ICitas<Usuario, int> Usuarios
+    {
+        get{
+            if (_usuario is not null)
+            {
+                return (ICitas<Usuario, int>)_usuario;
+            }
+            return (ICitas<Usuario, int>)(_usuario = new UsuarioRepository(_context));
+        }
     }
-
 }

@@ -1,21 +1,23 @@
-
+using Core.Interfaces;
+using Infrastructure.UnitOfWork;
 
 namespace API.Extensions;
-
-public static class ApplicationServiceExtencion
-{
-    public static void ConfigureCors(this IServiceCollection service) => service.AddCors(
-        option => {
+//Configurar las politicas cors
+public static class ApplicationServiceExtension{
+    public static void ConfigureCors(this IServiceCollection service)=>service.AddCors(
+        option=>{
             option.AddPolicy(
-                "CorsPolicy",
-                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
-                //desde cualquier servidor se conecta a tu endpoint
-                //permitir cualquier header xml json 
-                //permitir cualquier metodo
+                name:"CorsPolicy",
+                builder=>builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
             );
-
         }
-        
     );
+
+    public static void AddApplicationServices(this IServiceCollection services){
+        services.AddScoped<IUnitOfWork,UnitOfWork>();
+    }
     
 }

@@ -1,18 +1,15 @@
-using System.Ling.Expressions;
-using core.Entities;
+using System.Linq.Expressions;
+namespace Core.Interfaces;
 
-namespace core.Interfaces;
-
-public interface ICita
+public interface ICitas<TEntity,T_ID>
 {
-    Task<Cita> GetByIdAsync(string id);
-    Task<IEnumerable<Cita>> GetAllAsync();
-    IEnumerable<Cita>  find(Expression<Func<Cita, bool>> expression);
-    void Add(Cita entity);
-    void AddRange(IEnumerable<Cita> entities);
-    void Remove(Cita entity);
-    void RemoveRange(IEnumerable<Cita> entities);
-    void Update(Cita entity);
-
+    Task<TEntity> GetByIdAsync(T_ID id);
+    Task<ICollection<TEntity>> GetAllAsync();
+    IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
+    void Add(TEntity entity);
+    void AddRange(ICollection<TEntity> entities);
+    void Remove(TEntity entity);
+    void RemoveRange(ICollection<TEntity> entities);
+    void Update(TEntity entity);
 
 }

@@ -1,9 +1,10 @@
-using System.Ling.Expressions;
+
+using System.Linq.Expressions;
 using core.Entities;
 
 namespace core.Interfaces;
 
-public interface IEstado_cita_cita
+public interface IEstado_cita
 {
     Task<Estado_cita> GetByIdAsync(string id);
     Task<IEnumerable<Estado_cita>> GetAllAsync();

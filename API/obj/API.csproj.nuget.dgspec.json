@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/apolm01-004/speed-coding/API/API.csproj": {}
+    "/home/apolm01-004/Speed-coding/API/API.csproj": {}
   },
   "projects": {
-    "/home/apolm01-004/speed-coding/API/API.csproj": {
+    "/home/apolm01-004/Speed-coding/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/apolm01-004/speed-coding/API/API.csproj",
+        "projectUniqueName": "/home/apolm01-004/Speed-coding/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/home/apolm01-004/speed-coding/API/API.csproj",
+        "projectPath": "/home/apolm01-004/Speed-coding/API/API.csproj",
         "packagesPath": "/home/apolm01-004/.nuget/packages/",
-        "outputPath": "/home/apolm01-004/speed-coding/API/obj/",
+        "outputPath": "/home/apolm01-004/Speed-coding/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/apolm01-004/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/apolm01-004/speed-coding/Infrastructure/Infrastructure.csproj": {
-                "projectPath": "/home/apolm01-004/speed-coding/Infrastructure/Infrastructure.csproj"
+              "/home/apolm01-004/Speed-coding/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/home/apolm01-004/Speed-coding/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -42,6 +42,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.8, )"
@@ -80,14 +84,14 @@
         }
       }
     },
-    "/home/apolm01-004/speed-coding/Infrastructure/Infrastructure.csproj": {
+    "/home/apolm01-004/Speed-coding/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/apolm01-004/speed-coding/Infrastructure/Infrastructure.csproj",
+        "projectUniqueName": "/home/apolm01-004/Speed-coding/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "/home/apolm01-004/speed-coding/Infrastructure/Infrastructure.csproj",
+        "projectPath": "/home/apolm01-004/Speed-coding/Infrastructure/Infrastructure.csproj",
         "packagesPath": "/home/apolm01-004/.nuget/packages/",
-        "outputPath": "/home/apolm01-004/speed-coding/Infrastructure/obj/",
+        "outputPath": "/home/apolm01-004/Speed-coding/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/apolm01-004/.nuget/NuGet/NuGet.Config"
@@ -102,8 +106,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/apolm01-004/speed-coding/core/core.csproj": {
-                "projectPath": "/home/apolm01-004/speed-coding/core/core.csproj"
+              "/home/apolm01-004/Speed-coding/core/core.csproj": {
+                "projectPath": "/home/apolm01-004/Speed-coding/core/core.csproj"
               }
             }
           }
@@ -147,14 +151,14 @@
         }
       }
     },
-    "/home/apolm01-004/speed-coding/core/core.csproj": {
+    "/home/apolm01-004/Speed-coding/core/core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/apolm01-004/speed-coding/core/core.csproj",
+        "projectUniqueName": "/home/apolm01-004/Speed-coding/core/core.csproj",
         "projectName": "core",
-        "projectPath": "/home/apolm01-004/speed-coding/core/core.csproj",
+        "projectPath": "/home/apolm01-004/Speed-coding/core/core.csproj",
         "packagesPath": "/home/apolm01-004/.nuget/packages/",
-        "outputPath": "/home/apolm01-004/speed-coding/core/obj/",
+        "outputPath": "/home/apolm01-004/Speed-coding/core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/apolm01-004/.nuget/NuGet/NuGet.Config"
